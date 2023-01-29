@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
-    tools:context=".Chats">
-    <RelativeLayout
+    tools:context=".Chats"
+    android:orientation="vertical">
+    <LinearLayout
         android:id="@+id/upper_bg"
         android:layout_width="match_parent"
         android:layout_height="70sp"
+        android:orientation="vertical"
         android:background="@color/bg2">
+        
+
 
         <Button
             android:layout_width="wrap_content"
@@ -18,28 +22,43 @@
             android:layout_marginTop="11sp"
             android:backgroundTint="@color/bg2"
             android:onClick="goNumber"
-            android:text="назад"
-            android:textSize="15sp"></Button>
+            android:text="@string/comeback"
+            android:textSize="15sp"
+            tools:ignore="UsingOnClickInXml" />
+    </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:textSize="35sp"
-            android:layout_marginTop="13sp"
-            android:layout_marginStart="160sp"
-            android:text="Чаты"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
-
-    <ListView
-        android:id="@+id/listView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messges_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/upper_bg"
-        android:layout_marginHorizontal="20sp"
-        android:layout_marginVertical="20sp"/>
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/message_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_message"
+            android:minHeight="48dp">
+
+        </EditText>
+
+        <Button
+            android:id="@+id/send_message_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/send" >
+
+        </Button>
 
 
-</RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

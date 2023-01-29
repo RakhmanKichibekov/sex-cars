@@ -3,4 +3,8 @@
     <string name="prog_name">SocialCar</string>
     <string name="prog_name_after">Register App</string>
     <string name="text_bottom">Войдите в свою учётную запись</string>
+    <string name="send">Отправить</string>
+    <string name="enter_message">Введите сообщение</string>
+    <string name="comeback">назад</string>
+    <string name="my_message">My message</string>
 </resources>
