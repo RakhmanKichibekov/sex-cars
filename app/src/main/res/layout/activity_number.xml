@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg"
     tools:context=".Number">
+
     <RelativeLayout
         android:id="@+id/upper_bg"
         android:layout_width="match_parent"
@@ -81,6 +82,7 @@
             android:layout_marginHorizontal="0sp"
             android:backgroundTint="@color/purple_700"
             android:text="Поиск"
+            android:onClick="goComment"
             />
 
         <Button

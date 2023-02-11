@@ -7,4 +7,9 @@
     <string name="enter_message">Введите сообщение</string>
     <string name="comeback">назад</string>
     <string name="my_message">My message</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="pole_vvoda">Поле ввода</string>
+    <string name="searchComments">Найти коментарии</string>
+    <string name="EnterAutoNumber">Введите номер авто</string>
+    <string name="todo">TODO</string>
 </resources>

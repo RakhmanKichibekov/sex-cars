@@ -1,5 +1,6 @@
 package com.example.diplom2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diplom2.adapters.DataAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,20 +30,14 @@ import java.util.ArrayList;
 
 public class Chats extends AppCompatActivity {
 
-    private static int MAX_MESSAGE_LENGTH = 150;
+    private static final int MAX_MESSAGE_LENGTH = 150;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("messages");
-    Button button;
+    FloatingActionButton button;
     EditText editTextMessage;
     RecyclerView messageRecycleView;
     ArrayList<String> arrayMessages = new ArrayList<>();
-
-
-    private String[] namesArr = new String[]{"Moren", "Rakhman", "Polina", "Igor"};
-    private ListView listView;
-
-    private GestureDetectorCompat gd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +50,6 @@ public class Chats extends AppCompatActivity {
         messageRecycleView.setLayoutManager(new LinearLayoutManager(this));
         DataAdapter dataAdapter = new DataAdapter(this, arrayMessages);
         messageRecycleView.setAdapter(dataAdapter);
-
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +70,7 @@ public class Chats extends AppCompatActivity {
             }
         });
         myRef.addChildEventListener(new ChildEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
                 String msg = dataSnapshot.getValue(String.class);
@@ -104,5 +100,10 @@ public class Chats extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void goNumber(View view) {
+        Intent intent = new Intent(this, Number.class);
+        startActivity(intent);
     }
 }

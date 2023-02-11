@@ -1,7 +1,10 @@
 package com.example.diplom2.models;
 
+import java.util.ArrayList;
+
 public class User {
     private String name, email, pass, phone, carNumber;
+    ArrayList<String> comments;
 
     public User(){}
 
@@ -11,6 +14,15 @@ public class User {
         this.pass = pass;
         this.phone = phone;
         this.carNumber = carNumber;
+    }
+
+    public User(String name, String email, String pass, String phone, String carNumber, ArrayList<String> comments) {
+        this.name = name;
+        this.email = email;
+        this.pass = pass;
+        this.phone = phone;
+        this.carNumber = carNumber;
+        this.comments = comments;
     }
 
     public String getName() {
@@ -51,5 +63,13 @@ public class User {
 
     public void setCarNumber(String carNumber) {
         this.carNumber = carNumber;
+    }
+
+    public ArrayList<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<String> comments) {
+        this.comments = comments;
     }
 }

@@ -31,10 +31,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Number extends AppCompatActivity {
     private EditText userNameFileld;
-    MainActivity mainActivity;
     ListView listView;
     private ArrayAdapter<String> adapter;
     private List<String> listData;
@@ -67,7 +67,7 @@ public class Number extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         users = db.getReference("users");
 
-        //getDataFromDB();
+        getDataFromDB();
 
         //Взятие картинки из бд
         image = String.valueOf(db.getReference("image"));
@@ -97,7 +97,6 @@ public class Number extends AppCompatActivity {
             }
         };
         users.addValueEventListener(listener);
-
     }
 
     public void goAdd(View view) {
@@ -115,13 +114,13 @@ public class Number extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void getDataFromDB() {
-        //Мои попытки взяь email из окна входа
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View signInWindow = inflater.inflate(R.layout.sign_in_window, null);
-        final EditText email = signInWindow.findViewById(R.id.emailField);
+    public void goComment(View view) {
+        Intent intent = new Intent(this, SearchCommentUser.class);
+        startActivity(intent);
+    }
 
-        //Добавление номеров в список
+    private void getDataFromDB() {
+        //Добавление номера по почте в список
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -131,7 +130,8 @@ public class Number extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     User user = ds.getValue(User.class);
                     assert user != null;
-                    listData.add(user.getCarNumber());
+                    if (Objects.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(), user.getEmail()))
+                        listData.add(user.getCarNumber());
                 }
                 adapter.notifyDataSetChanged();
             }

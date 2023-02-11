@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/bg"
-    android:orientation="vertical"
-    tools:context=".Chats">
+    tools:context=".chat_new"
+    android:id="@+id/chat_new"
+    android:background="@color/bg">
 
     <LinearLayout
         android:id="@+id/upper_bg"
         android:layout_width="match_parent"
         android:layout_height="70sp"
-        android:background="@color/bg2"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/bg2">
+
+
 
         <Button
             android:layout_width="wrap_content"
@@ -26,43 +28,9 @@
             tools:ignore="UsingOnClickInXml" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/messges_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/upper_bg"
-        android:layout_above="@+id/textLayout"
-        android:layout_weight="1">
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/upper_bg"-->
-<!--        android:orientation="vertical">-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/message_input"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="@string/enter_message"-->
-<!--            android:minHeight="48dp">-->
-
-<!--        </EditText>-->
-
-<!--        <Button-->
-<!--            android:id="@+id/send_message_btn"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/send">-->
-
-<!--        </Button>-->
-
-
-<!--    </LinearLayout>-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/send_message_btn"
+        android:id="@+id/btnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="TODO"
@@ -71,22 +39,34 @@
         android:tint="@color/bg2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        app:fabSize="mini"
-        tools:ignore="RelativeOverlap" />
-
+        app:fabSize="mini"/>
+    
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@id/send_message_btn">
+        android:layout_toStartOf="@id/btnSend">
 
         <EditText
-            android:id="@+id/message_input"
+            android:id="@+id/message_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_message" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ListView
+        android:id="@+id/list_of_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/textLayout"
+        android:layout_below="@id/upper_bg"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="-2dp"
+        android:layout_marginBottom="18dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="16dp" />
 
 </RelativeLayout>

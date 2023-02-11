@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class DataAdapter extends RecyclerView.Adapter<ViewHolder> {
     ArrayList<String> messages;
     LayoutInflater inflater;
+    View view;
 
     public DataAdapter(Context context, ArrayList<String> messages) {
         this.messages = messages;
