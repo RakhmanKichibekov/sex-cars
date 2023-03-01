@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         String token = task.getResult();
                         System.out.println("токен" + token);
 
-                        // Log and toast
+//                         Log and toast
 //                        String msg = getString(R.string.msg_token_fmt, token);
 //                        Log.d(TAG, msg);
 //                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                User user = new User(name.getText().toString(), email.getText().toString(), password.getText().toString(),
+                                User user = new User(name.getText().toString(), email.getText().toString(),
                                         phone.getText().toString(), carNumber.getText().toString(), new ArrayList<String>());
                                 users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(user)

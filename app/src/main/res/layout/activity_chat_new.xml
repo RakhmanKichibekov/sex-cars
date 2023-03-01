@@ -2,19 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chat_new"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".chat_new"
-    android:id="@+id/chat_new"
-    android:background="@color/bg">
+    android:background="@color/bg"
+    tools:context=".ChatNew">
 
     <LinearLayout
         android:id="@+id/upper_bg"
         android:layout_width="match_parent"
         android:layout_height="70sp"
-        android:orientation="vertical"
-        android:background="@color/bg2">
-
+        android:background="@color/bg2"
+        android:orientation="vertical">
 
 
         <Button
@@ -33,20 +32,20 @@
         android:id="@+id/btnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="TODO"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:clickable="true"
+        android:contentDescription="TODO"
         android:src="@drawable/ic_send_button"
         android:tint="@color/bg2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        app:fabSize="mini"/>
-    
+        app:fabSize="mini" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:layout_toStartOf="@id/btnSend">
 
         <EditText

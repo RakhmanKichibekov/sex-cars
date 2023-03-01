@@ -25,6 +25,14 @@ public class User {
         this.comments = comments;
     }
 
+    public User(String name, String email, String phone, String carNumber, ArrayList<String> comments) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.carNumber = carNumber;
+        this.comments = comments;
+    }
+
     public String getName() {
         return name;
     }

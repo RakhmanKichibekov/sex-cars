@@ -32,7 +32,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/upper_bg"
         android:layout_above="@+id/textLayout"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        tools:ignore="MissingClass">
 
     </androidx.recyclerview.widget.RecyclerView>
 

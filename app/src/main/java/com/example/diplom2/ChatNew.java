@@ -1,23 +1,25 @@
 package com.example.diplom2;
 
+import static com.example.diplom2.R.layout.list_item;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.diplom2.adapters.DataAdapter;
 import com.example.diplom2.models.Message;
+import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,10 +30,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class chat_new extends AppCompatActivity {
+public class ChatNew extends AppCompatActivity {
+    private static final int SIGN_IN_CODE = 1;
     private static final int MAX_MESSAGE_LENGTH = 150;
     //Попытки сделать как первый вариант
-    ArrayList<String> arrayMessages = new ArrayList<>();
+    ArrayList<Message> arrayMessages = new ArrayList<>();
 
 
     private RelativeLayout chatNew;
@@ -48,10 +51,9 @@ public class chat_new extends AppCompatActivity {
         chatNew = findViewById(R.id.chat_new);
         sendBtn = findViewById(R.id.btnSend);
 
-        //Попытки сделать как первый вариант
-        //ListView listOfMsg = findViewById(R.id.list_of_messages);
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View v) {
                 EditText textField = findViewById(R.id.message_field);
@@ -70,18 +72,19 @@ public class chat_new extends AppCompatActivity {
                 textField.setText("");
             }
         });
-        displayAllMessages();
-
-        //Попытки сделать как первый вариант
-//        DataAdapter dataAdapter = new DataAdapter(this, arrayMessages);
-//        listOfMsg.setAdapter(dataAdapter);
+        if (FirebaseAuth.getInstance().getCurrentUser() == null)
+            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().build(), SIGN_IN_CODE);
+        else {
+            Snackbar.make(chatNew, "Вы авторизованы", Snackbar.LENGTH_SHORT).show();
+            displayAllMessages();
+        }
     }
 
     private void displayAllMessages() {
         options =
                 new FirebaseListOptions.Builder<Message>()
                         .setQuery(myRef, Message.class)
-                        .setLayout(R.layout.list_item)
+                        .setLayout(list_item)
                         .build();
         ListView listOfMsg = findViewById(R.id.list_of_messages);
         adapter = new FirebaseListAdapter<Message>(options) {
