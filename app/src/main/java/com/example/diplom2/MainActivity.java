@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.arch.core.internal.SafeIterableMap;
 
 import com.example.diplom2.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,6 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     Button btnSignin, btnRegister;
@@ -38,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference users;
 
     RelativeLayout root;
+
+    EditText email;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
         users = db.getReference("users");
+
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         String token = task.getResult();
                         System.out.println("токен" + token);
 
-                        // Log and toast
+//                         Log and toast
 //                        String msg = getString(R.string.msg_token_fmt, token);
 //                        Log.d(TAG, msg);
 //                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -98,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         View signInWindow = inflater.inflate(R.layout.sign_in_window, null);
         dialog.setView(signInWindow);
 
-        final EditText email = signInWindow.findViewById(R.id.emailField);
+        email = signInWindow.findViewById(R.id.emailField);
         final EditText password = signInWindow.findViewById(R.id.passField);
 
         dialog.setNegativeButton("Отменить", new DialogInterface.OnClickListener() {
@@ -186,8 +193,8 @@ public class MainActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                User user = new User(name.getText().toString(), email.getText().toString(), password.getText().toString(),
-                                        phone.getText().toString(), carNumber.getText().toString());
+                                User user = new User(name.getText().toString(), email.getText().toString(),
+                                        phone.getText().toString(), carNumber.getText().toString(), new ArrayList<String>());
                                 users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(user)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {

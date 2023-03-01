@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg"
     tools:context=".Number">
+
     <RelativeLayout
         android:id="@+id/upper_bg"
         android:layout_width="match_parent"
@@ -71,6 +72,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_above="@id/downpg"
+        android:layout_marginHorizontal="30sp"
+        android:layout_marginTop="250sp"
+        >
+
+        <TextView
+            android:id="@+id/textHello"
+            android:layout_marginTop="50sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Добро пожаловать, выберите, что хотите делать:"
+            android:textColor="@color/purple_700"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/downpg"
+        android:layout_width="match_parent"
         android:layout_height="55dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
@@ -81,6 +102,7 @@
             android:layout_marginHorizontal="0sp"
             android:backgroundTint="@color/purple_700"
             android:text="Поиск"
+            android:onClick="goComment"
             />
 
         <Button

@@ -1,27 +1,18 @@
 package com.example.diplom2;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.diplom2.models.User;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,13 +20,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Number extends AppCompatActivity {
     private EditText userNameFileld;
-    MainActivity mainActivity;
     ListView listView;
+    TextView textHello;
     private ArrayAdapter<String> adapter;
     private List<String> listData;
     //Создание переменных для БД
@@ -55,6 +48,7 @@ public class Number extends AppCompatActivity {
         setContentView(R.layout.activity_number);
         listView = findViewById(R.id.resultTextView);
         userNameFileld = findViewById(R.id.userNameField);
+        textHello = findViewById(R.id.textHello);
 
         //Для заполнения списка
         listData = new ArrayList<>();
@@ -67,7 +61,8 @@ public class Number extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         users = db.getReference("users");
 
-        //getDataFromDB();
+        getDataFromDB();
+        getNameFromDB();
 
         //Взятие картинки из бд
         image = String.valueOf(db.getReference("image"));
@@ -97,7 +92,6 @@ public class Number extends AppCompatActivity {
             }
         };
         users.addValueEventListener(listener);
-
     }
 
     public void goAdd(View view) {
@@ -115,13 +109,13 @@ public class Number extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void getDataFromDB() {
-        //Мои попытки взяь email из окна входа
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View signInWindow = inflater.inflate(R.layout.sign_in_window, null);
-        final EditText email = signInWindow.findViewById(R.id.emailField);
+    public void goComment(View view) {
+        Intent intent = new Intent(this, SearchCommentUser.class);
+        startActivity(intent);
+    }
 
-        //Добавление номеров в список
+    private void getDataFromDB() {
+        //Добавление номера по почте в список
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -131,7 +125,30 @@ public class Number extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     User user = ds.getValue(User.class);
                     assert user != null;
-                    listData.add(user.getCarNumber());
+                    if (Objects.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(), user.getEmail()))
+                        listData.add(user.getCarNumber());
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        users.addValueEventListener(listener);
+    }
+
+    private void getNameFromDB() {
+        //Добавление номера по почте в список
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    User user = ds.getValue(User.class);
+                    assert user != null;
+                    if (Objects.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(), user.getEmail()))
+                        textHello.setText("Добро пожаловать," + user.getName() + " , выберите, что хотите сделать в приложении:");
                 }
                 adapter.notifyDataSetChanged();
             }
